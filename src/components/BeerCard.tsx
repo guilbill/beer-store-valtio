@@ -20,8 +20,8 @@ const BeerCard = (props: { beer: Beer }) => {
             />
             <CardContent
                 sx={{
-                    maxWidth: 200,
-                    maxHeight: 200,
+                    width: 200,
+                    height: 80,
                     display: 'flex',
                     flexDirection: 'column',
                 }}
@@ -34,7 +34,12 @@ const BeerCard = (props: { beer: Beer }) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button
+                    size="small"
+                    onClick={() => alert(`Add ${beer.name} to basket`)}
+                >
+                    Add to basket
+                </Button>
             </CardActions>
         </Card>
     );

@@ -20,7 +20,9 @@ const BeerStore = () => {
     }, []);
 
     return (
-        <Container sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Container
+            sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+        >
             {beers.map((beer) => (
                 <BeerCard beer={beer} />
             ))}
