@@ -11,10 +11,18 @@ import { Beer } from '../types';
 const BeerCard = (props: { beer: Beer }) => {
     const { beer } = props;
     return (
-        <Card key={beer.id}>
+        <Card
+            key={beer.id}
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+            }}
+        >
             <CardMedia
                 component="img"
-                sx={{ width: 151, height: 151 }}
+                sx={{ width: 41, height: 151 }}
                 image={beer.image_url}
                 alt="green iguana"
             />
