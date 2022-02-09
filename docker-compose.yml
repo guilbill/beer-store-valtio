@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  beer-store:
+    image: node
+    ports:
+      - 3000:3000
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    command:
+      - npm
+      - run
+      - start
