@@ -1,7 +1,10 @@
 import { AppBar, Badge, IconButton, Toolbar, Typography } from '@mui/material';
 import { Notifications as NotificationsIcon } from '@mui/icons-material';
+import { toggleBasket } from './BeerBasket';
+import { useAtom } from 'jotai';
 
 const BeerAppBar = () => {
+    const [, toggleBasketDrawer] = useAtom(toggleBasket);
     return (
         <AppBar position="absolute">
             <Toolbar
@@ -18,7 +21,10 @@ const BeerAppBar = () => {
                 >
                     The Beer Store
                 </Typography>
-                <IconButton color="inherit">
+                <IconButton
+                    color="inherit"
+                    onClick={() => toggleBasketDrawer(true)}
+                >
                     <Badge badgeContent={4} color="secondary">
                         <NotificationsIcon />
                     </Badge>

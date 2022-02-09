@@ -2,6 +2,7 @@ import { CssBaseline } from '@mui/material';
 import { Box } from '@mui/system';
 import './App.css';
 import BeerAppBar from './components/BeerAppBar';
+import BeerBasket from './components/BeerBasket';
 import BeerStore from './components/BeerStore';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         <Box sx={{ display: 'flex' }}>
             <BeerAppBar />
             <BeerStore />
+            <BeerBasket />
         </Box>
     );
 }
