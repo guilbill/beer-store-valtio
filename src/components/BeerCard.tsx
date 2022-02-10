@@ -6,10 +6,13 @@ import {
     CardMedia,
     Typography,
 } from '@mui/material';
+import { useAtom } from 'jotai';
 import { Beer } from '../types';
+import { addToBasketAtom } from './BeerBasket';
 
 const BeerCard = (props: { beer: Beer }) => {
     const { beer } = props;
+    const [, addBeer] = useAtom(addToBasketAtom);
     return (
         <Card
             key={beer.id}
@@ -44,7 +47,9 @@ const BeerCard = (props: { beer: Beer }) => {
             <CardActions>
                 <Button
                     size="small"
-                    onClick={() => alert(`Add ${beer.name} to basket`)}
+                    onClick={() => {
+                        addBeer(beer);
+                    }}
                 >
                     Add to basket
                 </Button>

@@ -6,6 +6,7 @@ import {
     Container,
     Typography,
 } from '@mui/material';
+import { atom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { Beer } from '../types';
 import BeerCard from './BeerCard';

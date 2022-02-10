@@ -1,19 +1,42 @@
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import {
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    Typography,
+} from '@mui/material';
 import { atom, useAtom } from 'jotai';
 import { Beer } from '../types';
 
-export const openBasket = atom(false);
-export const toggleBasket = atom(null, (_get, set, update: boolean) => {
-    set(openBasket, update);
+const openBasketAtom = atom(false);
+export const toggleBasketAtom = atom(null, (_get, set, update: boolean) => {
+    set(openBasketAtom, update);
+});
+
+export const basketAtom = atom<{ beer: Beer; quantity: number }[]>([]);
+
+export const basketCountAtom = atom<number>((get) => {
+    const basket = get(basketAtom);
+    console.log('basketCountAtom', basket);
+    return basket.reduce((count, { quantity }) => count + quantity, 0);
+});
+
+export const addToBasketAtom = atom(null, (get, set, beer: Beer) => {
+    const selectedBeers = [...get(basketAtom)];
+    const existing = selectedBeers.find((b) => b.beer.id === beer.id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        selectedBeers.push({ beer, quantity: 1 });
+    }
+    set(basketAtom, selectedBeers);
 });
 
 const BeerBasket = () => {
-    const [isOpenBasket] = useAtom(openBasket);
-    const [, toggle] = useAtom(toggleBasket);
-    const selectedBeers: { beer: Beer; quantity: number }[] = [
-        { beer: { id: 1, name: 'Beer 1' }, quantity: 1 },
-        { beer: { id: 2, name: 'Beer 2' }, quantity: 2 },
-    ];
+    const [isOpenBasket] = useAtom(openBasketAtom);
+    const [, toggle] = useAtom(toggleBasketAtom);
+    const [selectedBeers] = useAtom(basketAtom);
+    const [count] = useAtom(basketCountAtom);
     return (
         <Drawer
             anchor="right"
