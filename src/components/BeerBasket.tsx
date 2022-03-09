@@ -9,8 +9,8 @@ import { atom, useAtom } from 'jotai';
 import { Beer } from '../types';
 
 const openBasketAtom = atom(false);
-export const toggleBasketAtom = atom(null, (_get, set, update: boolean) => {
-    set(openBasketAtom, update);
+export const toggleBasketAtom = atom(null, (_, set, isOpen: boolean) => {
+    set(openBasketAtom, isOpen);
 });
 
 export const basketAtom = atom<{ beer: Beer; quantity: number }[]>([]);
