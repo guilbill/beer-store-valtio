@@ -30,7 +30,7 @@ const BeerStore = () => {
             }}
         >
             {beers.map((beer) => (
-                <BeerCard beer={beer} />
+                <BeerCard beer={beer} key={beer.id} />
             ))}
         </Container>
     );
