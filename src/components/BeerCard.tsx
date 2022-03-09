@@ -6,13 +6,17 @@ import {
     CardMedia,
     Typography,
 } from '@mui/material';
-import { useAtom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 import { Beer } from '../types';
-import { addToBasketAtom } from './BeerBasket';
+import { addToBasketAtom, basketAtom } from './BeerBasket';
 
 const BeerCard = (props: { beer: Beer }) => {
     const { beer } = props;
     const [, addBeer] = useAtom(addToBasketAtom);
+    const beersInBasketAtom = atom((get) =>
+        get(basketAtom).find((beerInBasket) => beerInBasket.beer.id === beer.id)
+    );
+    const [beerInBasket] = useAtom(beersInBasketAtom);
     return (
         <Card
             key={beer.id}
@@ -38,7 +42,7 @@ const BeerCard = (props: { beer: Beer }) => {
                 }}
             >
                 <Typography color="text.primary" gutterBottom>
-                    {beer.name}
+                    {beer.name} - {beerInBasket?.quantity}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {beer.tagline}
