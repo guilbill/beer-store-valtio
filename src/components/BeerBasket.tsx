@@ -1,4 +1,5 @@
 import {
+    Button,
     Drawer,
     List,
     ListItem,
@@ -6,6 +7,7 @@ import {
     Typography,
 } from '@mui/material';
 import { atom, useAtom } from 'jotai';
+import { atomWithReset, useResetAtom } from 'jotai/utils';
 import { Beer } from '../types';
 
 const openBasketAtom = atom(false);
@@ -13,7 +15,18 @@ export const toggleBasketAtom = atom(null, (_, set, isOpen: boolean) => {
     set(openBasketAtom, isOpen);
 });
 
-export const basketAtom = atom<{ beer: Beer; quantity: number }[]>([]);
+export const basketAtom = atomWithReset<{ beer: Beer; quantity: number }[]>([]);
+
+export const getBeerStockAtom = atom<Function>((get) => {
+    const beersInBasket = get(basketAtom);
+    const getBeerStock = (beerId: number) => {
+        const beerInBasket = beersInBasket.find(
+            (beerInBasket) => beerInBasket.beer.id === beerId
+        );
+        return beerInBasket ? beerInBasket.quantity : 0;
+    };
+    return getBeerStock;
+});
 
 export const basketCountAtom = atom<number>((get) => {
     const basket = get(basketAtom);
@@ -37,6 +50,7 @@ const BeerBasket = () => {
     const [, toggle] = useAtom(toggleBasketAtom);
     const [selectedBeers] = useAtom(basketAtom);
     const [count] = useAtom(basketCountAtom);
+    const resetBasket = useResetAtom(basketAtom);
     return (
         <Drawer
             anchor="right"
@@ -54,6 +68,7 @@ const BeerBasket = () => {
                     </ListItem>
                 ))}
             </List>
+            <Button onClick={resetBasket}>Empty basket</Button>
         </Drawer>
     );
 };

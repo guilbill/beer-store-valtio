@@ -7,16 +7,16 @@ import {
     Typography,
 } from '@mui/material';
 import { atom, useAtom } from 'jotai';
+import { useEffect } from 'react';
 import { Beer } from '../types';
-import { addToBasketAtom, basketAtom } from './BeerBasket';
+import { addToBasketAtom, basketAtom, getBeerStockAtom } from './BeerBasket';
 
 const BeerCard = (props: { beer: Beer }) => {
     const { beer } = props;
     const [, addBeer] = useAtom(addToBasketAtom);
-    const beersInBasketAtom = atom((get) =>
-        get(basketAtom).find((beerInBasket) => beerInBasket.beer.id === beer.id)
-    );
-    const [beerInBasket] = useAtom(beersInBasketAtom);
+    const [basket] = useAtom(basketAtom);
+    const [getBeerStock] = useAtom(getBeerStockAtom);
+
     return (
         <Card
             key={beer.id}
@@ -42,7 +42,7 @@ const BeerCard = (props: { beer: Beer }) => {
                 }}
             >
                 <Typography color="text.primary" gutterBottom>
-                    {beer.name} - {beerInBasket?.quantity}
+                    {beer.name} - {getBeerStock(beer.id)}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {beer.tagline}
