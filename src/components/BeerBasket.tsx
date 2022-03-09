@@ -43,11 +43,14 @@ const BeerBasket = () => {
             open={!!isOpenBasket}
             onClose={() => toggle(false)}
         >
-            <List>
+            <List sx={{ width: '460px' }}>
                 {selectedBeers.map(({ beer, quantity }) => (
-                    <ListItem key={beer.id}>
+                    <ListItem key={beer.id} sx={{ display: 'flex' }}>
                         <ListItemText primary={beer.name} />
-                        <ListItemText primary={quantity} />
+                        <ListItemText
+                            primary={quantity}
+                            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                        />
                     </ListItem>
                 ))}
             </List>
