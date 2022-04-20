@@ -1,11 +1,4 @@
-import {
-  Button,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { proxy, useSnapshot } from "valtio";
 import { derive } from "valtio/utils";
 import { Beer } from "../types";
@@ -61,7 +54,6 @@ export const countState = derive({
 
 const BeerBasket = () => {
   const { isBasketOpen, selectedBeers } = useSnapshot(basketState);
-  const { total } = useSnapshot(countState);
   return (
     <Drawer anchor="right" open={!!isBasketOpen} onClose={() => toggleBasket()}>
       <List sx={{ width: "460px" }}>
