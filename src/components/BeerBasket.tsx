@@ -45,6 +45,18 @@ export const addBeerToBasket = (beer: Beer) => {
   }
 };
 
+export const removeBeerFromBasket = (beer: Beer) => {
+  const selectedBeers = basketState.selectedBeers;
+  const foundBeer = selectedBeers.find((b) => b.beer.id === beer.id);
+
+  if (foundBeer) {
+    foundBeer.quantity -= 1;
+  }
+  if (foundBeer?.quantity === 0) {
+    selectedBeers.splice(selectedBeers.indexOf(foundBeer), 1);
+  }
+};
+
 export const countState = derive({
   total: (get) =>
     get(basketState)
